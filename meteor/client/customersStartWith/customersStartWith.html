@@ -1,0 +1,39 @@
+<template name="customersStartWith">
+  <h1 class="page-header">Customers</h1>
+
+  <div class="well well-sm text-center">
+    <a href="/customers/">All</a> |
+    <a href="/customers/startWith/B">B</a> - <a href="/customers/startWith/C">C</a> - <a href="/customers/startWith/D">D</a> - <a href="/customers/startWith/E">E</a> - <a href="/customers/startWith/F">F</a> - <a href="/customers/startWith/G">G</a> - <a href="/customers/startWith/H">H</a> - <a href="/customers/startWith/I">I</a> - <a href="/customers/startWith/J">J</a> - <a href="/customers/startWith/K">K</a> - <a href="/customers/startWith/L">L</a> - <a href="/customers/startWith/M">M</a> - <a href="/customers/startWith/N">N</a> - <a href="/customers/startWith/O">O</a> - <a href="/customers/startWith/P">Q</a> - <a href="/customers/startWith/R">R</a> - <a href="/customers/startWith/S">S</a> - <a href="/customers/startWith/T">T</a> - <a href="/customers/startWith/U">U</a> - <a href="/customers/startWith/V">V</a> - <a href="/customers/startWith/W">W</a> - <a href="/customers/startWith/X">X</a> - <a href="/customers/startWith/Y">Y</a> - <a href="/customers/startWith/Z">Z</a> | <a href="/customers/startWith/1">1</a> - <a href="/customers/startWith/
+    2">2</a> - <a href="/customers/startWith/3">3</a> - <a href="/customers/startWith/4">4</a> - <a href="/customers/startWith/5">5</a> - <a href="/customers/startWith/6">6</a> - <a href="/customers/startWith/7">7</a> - <a href="/customers/startWith/8">8</a> - <a href="/customers/startWith/9">9</a> - <a href="/customers/startWith/0">0</a>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Branch</th>
+          <th width="25%">Tags</th>
+          <th>Created</th>
+          <th width="50px"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each customers}}
+        <tr>
+          <td><a href="/customer/{{_id}}">{{customerId}}</a></td>
+          <td>{{name}}</td>
+          <td>{{branch}}</td>
+          <td>{{tagList tags}}</td>
+          <td>{{created}}</td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button class="btn btn-danger btn-xs deleteCustomer" data-id="{{_id}}"><span class="glyphicon glyphicon-trash"></span></button>
+            </div>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>

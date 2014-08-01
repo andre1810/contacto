@@ -1,0 +1,282 @@
+<template name="customer">
+  <h1 class="page-header">{{customer.name}}</h1>
+
+      <div class="row">
+        <div class="col-sm-6">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Company</h3>
+            </div>
+            <div class="panel-body">{{> customerData}}</div>
+          </div>
+          
+        </div>
+
+        <div class="col-sm-6">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Addresses</h3>
+            </div>
+            <div class="panel-body">
+              {{> addresses}}
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Contacts</h3>
+            </div>
+            <div class="panel-body">
+              {{> contacts}}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Notes</h3>
+
+            </div>
+            <div class="panel-body">
+              {{> notes}}
+            </div>
+          </div>
+        </div>
+      </div>
+</template>
+
+<template name="customerData">
+  <form name="form" class="form-horizontal" role="form" novalidate>
+    <input id="customer_id" value="{{customer._id}}" type="hidden">
+    <div class="form-group">
+      <label for="inputName" class="col-sm-2 control-label">Name *</label>
+      <div class="col-sm-10">
+        <input id="customer_name" value="{{customer.name}}" type="text" class="form-control" placeholder="Name">
+      </div>
+    </div>
+    <div class="form-group">
+      <input id="customer_branch_backup" value="{{customer.branch}}" type="hidden">
+      <label for="inputBranch" class="col-sm-2 control-label">Branch</label>
+      <div class="col-sm-10">
+        <select id="customer_branch" type="text" class="form-control">
+          <option value="">Choose Branch</option>
+          <option value="Software Development">Software Development</option>
+          <option value="Consulting">Consulting</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputWebsite" class="col-sm-2 control-label">Website</label>
+      <div class="col-sm-10">
+         <input id="customer_website" value="{{customer.website}}" type="text" class="form-control" placeholder="Website">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputTags" class="col-sm-2 control-label">Tags</label>
+      <div class="col-sm-10">
+         <input id="customer_tags" value="{{customer.tags}}" type="text" class="form-control" placeholder="Tags">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputReference" class="col-sm-2 control-label">Reference</label>
+      <div class="col-sm-10">
+         <input id="customer_reference" value="{{customer.reference}}" type="text" class="form-control" placeholder="Reference">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputMemo" class="col-sm-2 control-label">Memo</label>
+      <div class="col-sm-10">
+        <textarea id="customer_note" rows="4" class="form-control">{{customer.note}}</textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button id="saveCustomer" class="btn btn-default saveCustomer"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+      </div>
+    </div>
+  </form>
+</template>
+
+<template name="addresses">
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Address</th>
+          <th width="70px"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each addresses}}
+        <tr>
+          <td>{{label}}</td>
+          <td>
+            {{street}}<br>
+            {{zip}}  {{city}}<br>
+            {{state}} {{country}}<br>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button class="btn btn-default btn-xs editAddress" data-id="{{_id}}"><span class="glyphicon glyphicon-pencil"></span></button>
+              <button class="btn btn-danger btn-xs deleteAddress" data-id="{{_id}}"><span class="glyphicon glyphicon-trash"></span></button>
+            </div>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <button class="btn btn-success btn-sm addAddress" data-id="{{customer._id}}"><span class="glyphicon glyphicon-plus"></span> Add address</button>
+</template>
+
+<template name="contacts">
+  {{#each contacts}}
+  <div class="pull-right btn-group actions">
+    <button class="btn btn-default btn-xs editContact" data-id="{{_id}}"><span class="glyphicon glyphicon-pencil"></span></button>
+    <button class="btn btn-danger btn-xs deleteContact" data-id="{{_id}}"><span class="glyphicon glyphicon-trash"></span></button>
+  </div>
+
+  <h4>{{firstName}} {{lastName}} <small>{{position}}</small></h4>
+  <p>
+    {{#if phone}}
+      <span class="glyphicon glyphicon-phone"></span> {{phone}}<br>
+    {{/if}}
+    {{#if mobile}}
+      <span class="glyphicon glyphicon-earphone"></span> {{mobile}}<br>
+    {{/if}}
+    {{#if email}}
+      <span class="glyphicon glyphicon-envelope"></span> <a href="mailto: {{email}}">{{email}}</a><br>
+    {{/if}}
+  </p>
+  <hr>
+  {{/each}}
+  <button class="btn btn-success btn-sm addContact" data-id="{{customer._id}}"><span class="glyphicon glyphicon-plus"></span> Add contact</button>
+</template>
+
+<template name="notes">
+{{#each notes}}
+  <div class="clearfix"></div>
+  <div class="pull-right btn-group actions">
+    <button class="btn btn-default btn-xs editNote" data-id="{{_id}}"><span class="glyphicon glyphicon-pencil"></span></button>
+    <button class="btn btn-danger btn-xs deleteNote" data-id="{{_id}}"><span class="glyphicon glyphicon-trash"></span></button>
+  </div>
+
+  <h4>{{title}} <small>{{created}}</small></h4>
+  <p>{{note}}</p>   
+  <hr>
+{{/each}}
+
+<button class="btn btn-success btn-sm addNote" data-id="{{customer._id}}"><span class="glyphicon glyphicon-plus"></span> Add note</button>
+</template>
+
+<template name="editAddress">
+  <form name="form" class="form-horizontal" role="form" novalidate>
+    <input id="customer_id" value="{{customer._id}}" type="hidden">
+    <div class="form-group">
+      <label for="inputLabel" class="col-sm-2 control-label">Label</label>
+      <div class="col-sm-10">
+        <input name="address_label" type="text" class="form-control" value="{{address.label}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputStreet" class="col-sm-2 control-label">Street</label>
+      <div class="col-sm-10">
+        <input name="address_street" type="text" class="form-control" value="{{address.street}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputZip" class="col-sm-2 control-label">Zip Code</label>
+      <div class="col-sm-10">
+        <input name="address_zip" type="text" class="form-control" value="{{address.zip}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputCity" class="col-sm-2 control-label">City</label>
+      <div class="col-sm-10">
+        <input name="address_city" type="text" class="form-control" value="{{address.city}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputState" class="col-sm-2 control-label">State</label>
+      <div class="col-sm-10">
+        <input name="address_state" type="text" class="form-control" value="{{address.state}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputCountry" class="col-sm-2 control-label">Country</label>
+      <div class="col-sm-10">
+        <input name="address_country" type="text" class="form-control" value="{{address.country}}">
+      </div>
+    </div>
+  </form>
+</template>
+
+<template name="editContact">
+  <form name="form" class="form-horizontal" role="form" novalidate>
+    <input id="customer_id" value="{{customer._id}}" type="hidden">
+    <div class="form-group">
+      <label for="contact_firstName" class="col-sm-2 control-label">First Name</label>
+      <div class="col-sm-10">
+        <input name="contact_firstName" type="text" class="form-control" value="{{contact.firstName}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contact_lastName" class="col-sm-2 control-label">Last Name</label>
+      <div class="col-sm-10">
+        <input name="contact_lastName" type="text" class="form-control" value="{{contact.lastName}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contact_position" class="col-sm-2 control-label">Position</label>
+      <div class="col-sm-10">
+        <input name="contact_position" type="text" class="form-control" value="{{contact.position}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contact_phone" class="col-sm-2 control-label">Phone</label>
+      <div class="col-sm-10">
+        <input name="contact_phone" type="text" class="form-control" value="{{contact.phone}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contact_mobile" class="col-sm-2 control-label">Mobile</label>
+      <div class="col-sm-10">
+        <input name="contact_mobile" type="text" class="form-control" value="{{contact.mobile}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contact_email" class="col-sm-2 control-label">Email</label>
+      <div class="col-sm-10">
+        <input name="contact_email" type="text" class="form-control" value="{{contact.email}}">
+      </div>
+    </div>
+  </form>
+</template>
+
+<template name="editNote">
+  <form name="form" class="form-horizontal" role="form" novalidate>
+    <input id="customer_id" value="{{customer._id}}" type="hidden">
+    <div class="form-group">
+      <label for="note_title" class="col-sm-2 control-label">Title</label>
+      <div class="col-sm-10">
+        <input name="note_title" type="text" class="form-control" value="{{note.title}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="note_text" class="col-sm-2 control-label">Note</label>
+      <div class="col-sm-10">
+        <textarea name="note_text" class="form-control" rows="6">{{note.note}}</textarea>
+      </div>
+    </div>
+  </form>
+</template>

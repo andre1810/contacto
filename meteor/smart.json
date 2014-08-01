@@ -1,0 +1,9 @@
+{
+  "packages": {
+    "iron-router": {},
+    "bootstrap-3": {},
+    "font-awesome": {},
+    "iron-router-active": {},
+    "reactive-modal": {}
+  }
+}

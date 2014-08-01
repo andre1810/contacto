@@ -1,0 +1,66 @@
+<template name="newCustomer">
+  <h1 class="page-header">New Customer</h1>
+
+  <div class="row">
+    <div class="col-sm-6">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Company</h3>
+        </div>
+        <div class="panel-body">
+
+          <form name="form" class="form-horizontal" role="form" novalidate>
+            <div class="form-group">
+              <label for="inputName" class="col-sm-2 control-label">Name *</label>
+              <div class="col-sm-10">
+                <input id="customer_name" value="" type="text" class="form-control" placeholder="Name">
+              </div>
+            </div>
+            <div class="form-group">
+              <input id="customer_branch_backup" value="" type="hidden">
+              <label for="inputBranch" class="col-sm-2 control-label">Branch</label>
+              <div class="col-sm-10">
+                <select id="customer_branch" type="text" class="form-control">
+                  <option value="">Choose Branch</option>
+                  <option value="Software Development">Software Development</option>
+                  <option value="Consulting">Consulting</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputWebsite" class="col-sm-2 control-label">Website</label>
+              <div class="col-sm-10">
+                 <input id="customer_website" value="" type="text" class="form-control" placeholder="Website">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputTags" class="col-sm-2 control-label">Tags</label>
+              <div class="col-sm-10">
+                 <input id="customer_tags" value="" type="text" class="form-control" placeholder="Tags">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputReference" class="col-sm-2 control-label">Reference</label>
+              <div class="col-sm-10">
+                 <input id="customer_reference" value="" type="text" class="form-control" placeholder="Reference">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputMemo" class="col-sm-2 control-label">Memo</label>
+              <div class="col-sm-10">
+                <textarea id="customer_note" rows="4" class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button id="saveCustomer" class="btn btn-default saveCustomer"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+              </div>
+            </div>
+          </form>
+          
+        </div>
+      </div>      
+    </div>     
+  </div> 
+</template>
