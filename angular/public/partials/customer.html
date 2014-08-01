@@ -1,0 +1,126 @@
+<h1 class="page-header" ng-bind="customer.name"></h1>
+
+<div class="alert alert-danger" role="alert" ng-if="error" ng-bind="error"></div>
+
+<div ng-if="customer._id">
+
+  <div class="row">
+    <div class="col-sm-6">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Company</h3>
+        </div>
+        <div class="panel-body" ng-include="'partials/customer_data.html'"></div>
+      </div>
+      
+    </div>
+
+    <div class="col-sm-6">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Addresses</h3>
+        </div>
+        <div class="panel-body">
+
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Address</th>
+                  <th width="70px"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="address in addresses">
+                  <td ng-bind="address.label"></td>
+                  <td>
+                    <span ng-bind="address.street"></span><br>
+                    <span ng-bind="address.zip"> </span> <span ng-bind="address.city"></span><br>
+                    <span ng-bind="address.state"></span> <span ng-bind="address.country"></span><br>
+                  </td>
+                  <td class="text-right">
+                    <div class="btn-group">
+                      <button class="btn btn-default btn-xs" ng-click="editAddress(address)"><span class="glyphicon glyphicon-pencil"></span></button>
+                      <button class="btn btn-danger btn-xs" ng-click="deleteAddress(address)"><span class="glyphicon glyphicon-trash"></span></button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <button class="btn btn-success btn-sm" ng-click="addAddress()"><span class="glyphicon glyphicon-plus"></span> Add address</button>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Contacts</h3>
+        </div>
+        <div class="panel-body">
+
+          <div ng-repeat="contact in contacts">
+            <div class="pull-right btn-group actions">
+              <button class="btn btn-default btn-xs" ng-click="editContact(contact)"><span class="glyphicon glyphicon-pencil"></span></button>
+              <button class="btn btn-danger btn-xs" ng-click="deleteContact(contact)"><span class="glyphicon glyphicon-trash"></span></button>
+            </div>
+
+            <h4><span ng-bind="contact.firstName"></span> <span ng-bind="contact.lastName"></span> <small><span ng-bind="contact.position"></span></small></h4>
+            <p>
+              <div ng-if="contact.phone">
+                <span class="glyphicon glyphicon-phone"></span> <span ng-bind="contact.phone"></span>
+              </div>
+              <div ng-if="contact.mobile">
+                <span class="glyphicon glyphicon-earphone"></span> <span ng-bind="contact.mobile"></span>
+              </div>
+              <div ng-if="contact.email">
+                <span class="glyphicon glyphicon-envelope"></span> <a href="mailto: {{contact.email}}" ng-bind="contact.email"></a>
+              </div>
+            </p>
+            <hr>
+          </div>
+          <button class="btn btn-success btn-sm" ng-click="addContact()"><span class="glyphicon glyphicon-plus"></span> Add contact</button>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Notes</h3>
+
+        </div>
+        <div class="panel-body">
+
+          <div ng-repeat="note in notes">
+
+            <div class="clearfix"></div>
+            <div class="pull-right btn-group actions">
+              <button class="btn btn-default btn-xs" ng-click="editNote(note)"><span class="glyphicon glyphicon-pencil"></span></button>
+              <button class="btn btn-danger btn-xs" ng-click="deleteNote(note)"><span class="glyphicon glyphicon-trash"></span></button>
+            </div>
+
+            <h4><span ng-bind="note.title"></span> <small ng-bind="note.created  | date : 'yyyy-MM-dd H:mm'"></small></h4>
+            <p ng-bind="note.note"></p>   
+            <hr>
+
+          </div>
+
+          <button class="btn btn-success btn-sm" ng-click="addNote()"><span class="glyphicon glyphicon-plus"></span> Add note</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

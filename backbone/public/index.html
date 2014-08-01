@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>contacto Customer Relationship Management</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- selectize.js -->
+    <link href="/components/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/dashboard.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">contacto CRM <small>@ BackboneJS</small></a>
+        </div>
+        <div id="search-region"></div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <div id="navigation-region"></div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">          
+          <div id="main-region"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="dialog-region"></div>
+
+    <!-- search -->
+
+    <script id="search-bar" type="text/template">
+      <div class="navbar-form navbar-right">
+        <input id="search-field" type="text" class="form-control" placeholder="Search...">
+      </div>
+    </script>
+
+
+    <!-- navigation -->
+
+    <script id="navigation" type="text/template">
+      <ul></ul>
+    </script>
+
+    <script id="navigation-item" type="text/template">
+       <a href="#<%= url %>"><%= name %></a>
+    </script>
+
+    <!-- dashboard -->
+    <script id="dashboard-layout" type="text/template">
+      <div id="dashboard-region"></div>
+      <div id="new-customers-region"></div>
+      <div id="tags-region"></div>
+    </script>
+
+    <script id="dashboard-view" type="text/template">
+      <h1 class="page-header">Dashboard</h1>
+      <strong><span id="total-customers">0</span></strong> customers in the database.<br>
+      <strong><span id="total-new-customers">0</span></strong> new customers added this week.<br>
+    </script>
+
+    <!-- new customers -->
+    <script id="new-customers-view" type="text/template">
+      <h2 class="sub-header">New customers</h2>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Branch</th>
+              <th>Tags</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </script>
+
+    <script id="new-customer-row" type="text/template">
+      <td><a href="/#customer/<%= customerId %>"><%= customerId %></a></td>
+      <td><%= name %></td>
+      <td><%= branch %></td>
+      <td>
+        <% if (tags != null) { %>
+        <%= tags.join(', ') %>
+        <% } %>
+      </td>
+      <td><%= created %></td>
+    </script>
+
+    <script id="empty-new-customer-row" type="text/template">
+      no data
+    </script>
+
+    <!-- tags -->
+    <script id="tags-view" type="text/template">
+      <h2 class="sub-header">Tags</h2>
+      <p class="text-muted"><span id="tag-count">0</span> tags:</p>
+      <div id="tags"></div>
+    </script>
+
+    <script id="tag" type="text/template">
+      <a href="/#customers/search/<%= tag %>" class="btn btn-default"><%= tag %></a>
+    </script>
+
+    <script id="no-tags" type="text/template">
+      No tags added.
+    </script>
+
+    <!-- customers -->
+    <script id="customers-view" type="text/template">
+      <h1 class="page-header">Customers</h1>
+
+      <div class="well well-sm text-center">
+        <a href="/#customers">Alle</a> | <a href="/#customers/A">A</a> - <a href="/#customers/B">B</a> - <a href="/#customers/C">C</a> - <a href="/#customers/D">D</a> - <a href="/#customers/E">E</a> - <a href="/#customers/F">F</a> - <a href="/#customers/G">G</a> - <a href="/#customers/H">H</a> - <a href="/#customers/I">I</a> - <a href="/#customers/J">J</a> - <a href="/#customers/K">K</a> - <a href="/#customers/L">L</a> - <a href="/#customers/M">M</a> - <a href="/#customers/N">N</a> - <a href="/#customers/O">O</a> - <a href="/#customers/P">P</a> - <a href="/#customers/Q">Q</a> - <a href="/#customers/R">R</a> - <a href="/#customers/S">S</a> - <a href="/#customers/T">T</a> - <a href="/#customers/U">U</a> - <a href="/#customers/V">V</a> - <a href="/#customers/W">W</a> - <a href="/#customers/X">X</a> - <a href="/#customers/Y">Y</a> - <a href="/#customers/Z">Z</a> | <a href="/#customers/0">0</a> - <a href="/#customers/1">1</a> - <a href="/#customers/2">2</a> - <a href="/#customers/3">3</a> - <a href="/#customers/4">4</a> - <a href="/#customers/5">5</a> - <a href="/#customers/6">6</a> - <a href="/#customers/7">7</a> - <a href="/#customers/8">8</a> - <a href="/#customers/9">9</a>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Branch</th>
+              <th width="25%">Tags</th>
+              <th>Created</th>
+              <th width="50px"></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </script>
+
+    <script id="customer-row" type="text/template">
+      <td><a href="/#customer/<%= customerId %>"><%= customerId %></a></td>
+      <td><%= name %></td>
+      <td><%= branch %></td>
+      <td>
+      <% if (tags != null) { %>
+        <%= tags.join(', ') %>
+        <% } %>
+      </td>
+      <td><%= created %></td>
+      <td class="text-right">
+          <div class="btn-group">
+            <button class="btn btn-danger btn-xs delete-customer"><span class="glyphicon glyphicon-trash"></span></button>
+          </div>
+        </td>
+    </script>
+
+    <script id="no-customer-row" type="text/template">
+      no data
+    </script>
+
+    <!-- customer sarch result -->
+
+    <script id="customer-search-result-view" type="text/template">
+      <h1 class="page-header">Customer Search: <%= keyword %></h1>
+
+      <p><strong><%= customersFound %></strong> results:</p>
+
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Branch</th>
+              <th width="25%">Tags</th>
+              <th>Created</th>
+              <th width="50px"></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </script>
+
+    <!-- customer -->
+
+    <script id="customer-layout" type="text/template">
+      <h1 class="page-header"><%= name %></h1>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div id="customer-region"></div>         
+        </div>
+        <div class="col-sm-6">
+          <div id="addresses-region"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div id="contacts-region"></div>          
+        </div>
+        <div class="col-sm-6">
+          <div id="notes-region"></div>          
+        </div>
+      </div>
+    </script>
+
+    <script id="new-customer-layout" type="text/template">
+      <h1 class="page-header">New Customer</h1>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div id="customer-region"></div>        
+        </div>
+      </div>
+    </script>
+
+    <script id="customer" type="text/template">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Company</h3>
+        </div>
+        <div class="panel-body">
+
+          <form name="form" class="form-horizontal" role="form">
+            <div class="form-group">
+              <label for="inputName" class="col-sm-2 control-label">Name *</label>
+              <div class="col-sm-10">
+                <input name="name" type="text" class="form-control" id="inputName" placeholder="Name" value="<%- name %>">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputBranch" class="col-sm-2 control-label">Branch</label>
+              <div class="col-sm-10">
+                <select name="branch" class="form-control" id="inputBranch" placeholder="Branch">
+                  <option value="Consulting">Consulting</option>
+                  <option value="Software Development">Software Development</option>           
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputWebsite" class="col-sm-2 control-label">Website</label>
+              <div class="col-sm-10">
+                <input type="url" name="website" class="form-control" id="inputWebsite" placeholder="Website" value="<%- website %>">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputTags" class="col-sm-2 control-label">Tags</label>
+              <div class="col-sm-10">
+                <input type="text" name="tags" class="form-control" id="inputTags" placeholder="Tags" value="<%- tags %>">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputReference" class="col-sm-2 control-label">Reference</label>
+              <div class="col-sm-10">
+                <input type="text" name="reference" class="form-control" id="inputReference" placeholder="Reference" value="<%- reference %>">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputMemo" class="col-sm-2 control-label">Memo</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" name="note" id="inputMemo" rows="4"><%- note %></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-default save-customer"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </script>
+
+    <script id="addresses-view" type="text/template">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Addresses</h3>
+        </div>
+        <div class="panel-body">
+
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Address</th>
+                  <th width="70px"></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+
+            <button class="btn btn-success btn-sm new-address"><span class="glyphicon glyphicon-plus"></span> Add address</button>
+
+          </div>
+
+        </div>
+      </div>
+    </script>
+
+    <script id="address" type="text/template">
+      <td><%= label %></td>
+      <td>
+        <%= street %><br>
+        <%= zip %> <%= city %><br>
+        <%= state %> <%= country %><br>
+      </td>
+      <td class="text-right">
+        <div class="btn-group">
+          <button class="btn btn-default btn-xs edit-address"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button class="btn btn-danger btn-xs delete-address"><span class="glyphicon glyphicon-trash"></span></button>
+        </div>
+      </td>
+    </script>
+
+    <script id="no-address" type="text/template">
+      <td colspan="4">no addresses added</td>
+    </script>
+
+    <script id="contacts-view" type="text/template">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Contacts</h3>
+        </div>
+        <div class="panel-body">
+
+          <div id="contacts-container">
+            
+          </div>
+          <button class="btn btn-success btn-sm new-contact"><span class="glyphicon glyphicon-plus"></span> Add contact</button>
+
+        </div>
+      </div>
+    </script>
+
+    <script id="contact" type="text/template">
+      <div class="pull-right btn-group actions">
+        <button class="btn btn-default btn-xs edit-contact"><span class="glyphicon glyphicon-pencil"></span></button>
+        <button class="btn btn-danger btn-xs delete-contact"><span class="glyphicon glyphicon-trash"></span></button>
+      </div>
+
+      <h4><%= firstName %> <%= lastName %></span> <small><%= position %></small></h4>
+      <p>
+        <% if (phone.length > 0) { %>
+        <div>
+          <span class="glyphicon glyphicon-phone"></span> <%= phone %></span>
+        </div>
+        <% } %>
+        <% if (mobile.length > 0) { %>
+        <div>
+          <span class="glyphicon glyphicon-earphone"></span> <%= mobile %></span>
+        </div>
+        <% } %>
+        <% if (email.length > 0) { %>
+        <div>
+          <span class="glyphicon glyphicon-envelope"></span> <a href="mailto: <%= email %>"><%= email %></a>
+        </div>
+        <% } %>
+      </p>
+      <hr>
+    </script>
+
+    <script id="no-contact" type="text/template">
+      <p>no contacts added.</p>
+    </script>
+
+    <script id="notes-view" type="text/template">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Notes</h3>
+
+        </div>
+        <div class="panel-body">
+
+          <div id="notes-container"></div>
+
+          <button class="btn btn-success btn-sm new-note"><span class="glyphicon glyphicon-plus"></span> Add note</button>
+
+        </div>
+      </div>
+    </script>
+
+    <script id="note" type="text/template">
+      <div class="clearfix"></div>
+      <div class="pull-right btn-group actions">
+        <button class="btn btn-default btn-xs edit-note"><span class="glyphicon glyphicon-pencil"></span></button>
+        <button class="btn btn-danger btn-xs delete-note"><span class="glyphicon glyphicon-trash"></span></button>
+      </div>
+
+      <h4><%= title %> <%= created %></small></h4>
+      <p><%= note %></p>   
+      <hr>
+    </script>
+
+    <script id="no-note" type="text/template">
+      <p>no notes added.</p>
+    </script>
+
+    <script id="address-modal" type="text/templates">
+      <form id="address-form" class="form-horizontal" role="form" novalidate>
+        <div class="form-group">
+          <label for="inputLabel" class="col-sm-2 control-label">Label</label>
+          <div class="col-sm-10">
+            <input name="label" type="text" class="form-control" id="inputLabel" placeholder="Label" value="<%= label %>">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputStreet" class="col-sm-2 control-label">Street</label>
+          <div class="col-sm-10">
+            <input name="street" type="text" class="form-control" id="inputStreet" placeholder="Street" value="<%= street %>">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputZip" class="col-sm-2 control-label">Zip Code</label>
+          <div class="col-sm-10">
+            <input name="zip" type="text" class="form-control" id="inputZip" placeholder="Zip Code" value="<%= zip %>">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputCity" class="col-sm-2 control-label">City</label>
+          <div class="col-sm-10">
+            <input name="city" type="text" class="form-control" id="inputCity" placeholder="City" value="<%= city %>">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputState" class="col-sm-2 control-label">State</label>
+          <div class="col-sm-10">
+            <input name="state" type="text" class="form-control" id="inputState" placeholder="State" value="<%= state %>">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputCountry" class="col-sm-2 control-label">Country</label>
+          <div class="col-sm-10">
+            <input name="country" type="text" class="form-control" id="inputCountry" placeholder="Country" value="<%= country %>">
+          </div>
+        </div>
+      </form>
+    </script>
+
+    <script id="contact-modal" type="text/templates">
+      <form id="contact-form" class="form-horizontal" role="form" novalidate>
+        <div class="form-group">
+          <label for="inputFirstName" class="col-sm-2 control-label">First name</label>
+          <div class="col-sm-10">
+            <input name="firstName" type="text" class="form-control" id="inputFirstName" placeholder="First name" value="<%= firstName %>">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputLastName" class="col-sm-2 control-label">Last name</label>
+          <div class="col-sm-10">
+            <input name="lastName" type="text" class="form-control" id="inputLastName" placeholder="Last name" value="<%= lastName %>">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPosition" class="col-sm-2 control-label">Position</label>
+          <div class="col-sm-10">
+            <input name="position" type="text" class="form-control" id="inputPosition" placeholder="Position" value="<%= position %>">
+          </div>
+        </div>      
+        <div class="form-group">
+          <label for="inputPhone" class="col-sm-2 control-label">Phone</label>
+          <div class="col-sm-10">
+            <input name="phone" type="text" class="form-control" id="inputPhone" placeholder="Phone" value="<%= phone %>">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputMobile" class="col-sm-2 control-label">Mobile</label>
+          <div class="col-sm-10">
+            <input name="mobile" type="text" class="form-control" id="inputMobile" placeholder="Mobile" value="<%= mobile %>">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+          <div class="col-sm-10">
+            <input name="email" type="text" class="form-control" id="inputEmail" placeholder="Email" value="<%= email %>">
+          </div>
+        </div>
+      </form>
+    </script>
+
+    <script id="note-modal" type="text/templates">
+      <form id="note-form" name="form" class="form-horizontal" role="form" novalidate>
+        <div class="form-group">
+          <label for="inputTitle" class="col-sm-2 control-label">Title</label>
+          <div class="col-sm-10">
+            <input name="title" type="text" class="form-control" id="inputTitle" placeholder="Title" value="<%= title %>">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputNote" class="col-sm-2 control-label">Note</label>
+          <div class="col-sm-10">
+            <textarea name="note" type="text" class="form-control" id="inputNote" rows="8"><%= note %></textarea>
+          </div>
+        </div>
+      </form>
+    </script>
+
+    <!-- Components -->
+    <script type="text/javascript" src="/components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/components/bootbox/bootbox.js"></script>
+    <script type="text/javascript" src="/components/underscore/underscore.js"></script>
+    <script type="text/javascript" src="/components/backbone/backbone.js"></script>
+    <script type="text/javascript" src="/components/marionette/lib/backbone.marionette.js"></script>
+    <script type="text/javascript" src="/components/backbone.syphon/backbone.syphon.js"></script> 
+    <script type="text/javascript" src="/components/backbone.picky/backbone.picky.js"></script> 
+    <script type="text/javascript" src="/components/selectize/dist/js/standalone/selectize.js"></script>
+
+    <script type="text/javascript" src="/js/contacto_app.js"></script>
+    <script type="text/javascript" src="/js/entities/navigation.js"></script>
+    <script type="text/javascript" src="/js/entities/search_result.js"></script>
+    <script type="text/javascript" src="/js/entities/customer.js"></script>
+    <script type="text/javascript" src="/js/entities/tag.js"></script>
+    <script type="text/javascript" src="/js/entities/address.js"></script>
+    <script type="text/javascript" src="/js/entities/contact.js"></script>
+    <script type="text/javascript" src="/js/entities/note.js"></script>
+
+    <script type="text/javascript" src="/js/apps/search/search_app.js"></script>
+    <script type="text/javascript" src="/js/apps/search/search/search_view.js"></script>
+    <script type="text/javascript" src="/js/apps/search/search/search_controller.js"></script>
+
+    <script type="text/javascript" src="/js/apps/navigation/navigation_app.js"></script>
+    <script type="text/javascript" src="/js/apps/navigation/list/list_view.js"></script>
+    <script type="text/javascript" src="/js/apps/navigation/list/list_controller.js"></script>
+    
+    <script type="text/javascript" src="/js/apps/dashboard/dashboard_app.js"></script>
+    <script type="text/javascript" src="/js/apps/dashboard/show/show_view.js"></script>
+    <script type="text/javascript" src="/js/apps/dashboard/show/show_controller.js"></script>
+
+    <script type="text/javascript" src="/js/apps/customers/customers_app.js"></script>
+    <script type="text/javascript" src="/js/apps/customers/list/list_view.js"></script>
+    <script type="text/javascript" src="/js/apps/customers/list/list_controller.js"></script>
+
+    <script type="text/javascript" src="/js/apps/customer/customer_app.js"></script>
+    <script type="text/javascript" src="/js/apps/customer/new/new_view.js"></script>
+    <script type="text/javascript" src="/js/apps/customer/new/new_controller.js"></script>
+    <script type="text/javascript" src="/js/apps/customer/edit/edit_view.js"></script>
+    <script type="text/javascript" src="/js/apps/customer/edit/edit_controller.js"></script>
+    
+    <script type="text/javascript">
+      ContactoApp.start();
+    </script>
+    
+  </body>
+</html>

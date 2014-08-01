@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="contactoApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>contacto Customer Relationship Management</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- selectize.js -->
+    <link href="/components/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/dashboard.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <script type="text/x-handlebars">
+
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">contacto CRM <small>@ EmberJS</small></a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <div class="navbar-form navbar-right">
+              {{input id="search" action="search" onEvent="enter" target="view" class="form-control" placeholder="Search..."}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+              <li {{bind-attr class="overviewPathActive:active"}}>{{#link-to 'dashboard'}}Overview{{/link-to}}</li>
+              <li {{bind-attr class="customersPathActive:active"}}>{{#link-to 'customers.index'}}Customers{{/link-to}}</li>
+              <li {{bind-attr class="newCustomerPathActive:active"}}>{{#link-to 'customers.new'}}New Customer{{/link-to}}</li>
+            </ul>
+          </div>
+          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            {{outlet}}
+            {{outlet modal}}
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" id="dashboard">
+      <h1 class="page-header">Dashboard</h1>
+      <strong>{{model.customers.length}}</strong> customers in the database.<br>
+      <strong>{{model.newCustomers.length}}</strong> new customers added this week.<br>
+
+      <h2 class="sub-header">New Customers</h2>
+      {{view App.CustomersTableView contextBinding="model.newCustomers"}}
+
+      <h2 class="sub-header">Tags</h2>
+      <p class="text-muted">{{model.tags.length}} tags:</p>
+      {{#each model.tags}}
+        {{#link-to 'customers.search' tag class='btn btn-default'}}{{tag}}{{/link-to}}
+      {{/each}}
+
+    </script>
+
+    <script type="text/x-handlebars" id="customers/index">
+      <h1 class="page-header">Customers</h1>
+      {{view App.CustomersNavigationView contextBinding="model"}}
+      {{view App.CustomersTableView contextBinding="model"}}
+    </script>
+
+    <script type="text/x-handlebars" id="customers/startWith">
+      <h1 class="page-header">Customers</h1>
+      {{view App.CustomersNavigationView contextBinding="model"}}
+      {{view App.CustomersTableView contextBinding="model"}}
+    </script>
+
+    <script type="text/x-handlebars" id="customers-navigation">
+      <div class="well well-sm text-center">
+      {{#link-to 'customers'}}Alle{{/link-to}} | 
+        {{#link-to 'customers.startWith' 'A'}}A{{/link-to}} -  {{#link-to 'customers.startWith' 'B'}}B{{/link-to}} - {{#link-to 'customers.startWith' 'C'}}C{{/link-to}} - {{#link-to 'customers.startWith' 'D'}}D{{/link-to}} - {{#link-to 'customers.startWith' 'E'}}E{{/link-to}} - {{#link-to 'customers.startWith' 'F'}}F{{/link-to}} - {{#link-to 'customers.startWith' 'G'}}G{{/link-to}} - {{#link-to 'customers.startWith' 'H'}}H{{/link-to}} - {{#link-to 'customers.startWith' 'I'}}I{{/link-to}} - {{#link-to 'customers.startWith' 'J'}}J{{/link-to}} - {{#link-to 'customers.startWith' 'K'}}K{{/link-to}} - {{#link-to 'customers.startWith' 'L'}}L{{/link-to}} - {{#link-to 'customers.startWith' 'M'}}M{{/link-to}} - {{#link-to 'customers.startWith' 'N'}}N{{/link-to}} - {{#link-to 'customers.startWith' 'O'}}O{{/link-to}} - {{#link-to 'customers.startWith' 'P'}}P{{/link-to}} - {{#link-to 'customers.startWith' 'Q'}}Q{{/link-to}} - {{#link-to 'customers.startWith' 'R'}}R{{/link-to}} - {{#link-to 'customers.startWith' 'S'}}S{{/link-to}} - {{#link-to 'customers.startWith' 'T'}}T{{/link-to}} - {{#link-to 'customers.startWith' 'U'}}U{{/link-to}} - {{#link-to 'customers.startWith' 'V'}}V{{/link-to}} - {{#link-to 'customers.startWith' 'W'}}W{{/link-to}} - {{#link-to 'customers.startWith' 'X'}}X{{/link-to}} - {{#link-to 'customers.startWith' 'Y'}}Y{{/link-to}} - {{#link-to 'customers.startWith' 'Z'}}Z{{/link-to}} | {{#link-to 'customers.startWith' '0'}}0{{/link-to}} - {{#link-to 'customers.startWith' '1'}}1{{/link-to}} - {{#link-to 'customers.startWith' '2'}}2{{/link-to}} - {{#link-to 'customers.startWith' '3'}}3{{/link-to}} - {{#link-to 'customers.startWith' '4'}}4{{/link-to}} - {{#link-to 'customers.startWith' '5'}}5{{/link-to}} - {{#link-to 'customers.startWith' '6'}}6{{/link-to}} - {{#link-to 'customers.startWith' '7'}}7{{/link-to}} - {{#link-to 'customers.startWith' '8'}}8{{/link-to}} - {{#link-to 'customers.startWith' '9'}}9{{/link-to}}
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" id="customers-table">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Branch</th>
+              <th width="25%">Tags</th>
+              <th>Created</th>
+              <th width="50px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each}}
+            <tr>
+              <td>{{#link-to 'customer' _id}}{{customerId}}{{/link-to}}</td>
+              <td>{{name}}</td>
+              <td>{{branch}}</td>
+              <td>{{tagList}}</td>
+              <td>{{created}}</td>
+              <td class="text-right">
+                <div class="btn-group">
+                  <button class="btn btn-danger btn-xs deleteCustomer" {{action 'deleteCustomer' this}}><span class="glyphicon glyphicon-trash"></span></button>
+                </div>
+              </td>
+            </tr>
+            {{else}}
+            <tr>
+              <td colspan="6">no customers</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" id="customers/search">
+      <h1 class="page-header">Search: {{keyword}}</h1>
+
+      {{view App.CustomersTableView contextBinding="model"}}
+    </script>
+
+    <script type="text/x-handlebars" id="customer">
+      <h1 class="page-header">{{model.customer.name}}</h1>
+
+      <div class="row">
+        <div class="col-sm-6">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Company</h3>
+            </div>
+            <div class="panel-body">{{view App.CustomerDataView contextBinding="model"}}</div>
+          </div>
+          
+        </div>
+
+        <div class="col-sm-6">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Addresses</h3>
+            </div>
+            <div class="panel-body">{{view App.CustomerAddressesView contextBinding="model"}}</div>
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Contacts</h3>
+            </div>
+            <div class="panel-body">{{view App.CustomerContactsView contextBinding="model"}}</div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Notes</h3>
+
+            </div>
+            <div class="panel-body">{{view App.CustomerNotesView contextBinding="model"}}</div>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" id="customers/new">
+      <h1 class="page-header">New Customer</h1>
+
+      <div class="row">
+        <div class="col-sm-6">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Company</h3>
+            </div>
+            <div class="panel-body">{{view App.CustomerDataView contextBinding="model"}}</div>
+          </div>
+          
+        </div>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="customer-data">
+      <form name="form" class="form-horizontal" role="form" novalidate>
+        <div class="form-group">
+          <label for="inputName" class="col-sm-2 control-label">Name *</label>
+          <div class="col-sm-10">
+            {{input id="customer_name" value=customer.name type="text" class="form-control" placeholder="Name"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputBranch" class="col-sm-2 control-label">Branch</label>
+          <div class="col-sm-10">
+            {{view App.SelectBranchView selection=customer.branch selection=customer.branch}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputWebsite" class="col-sm-2 control-label">Website</label>
+          <div class="col-sm-10">
+            {{input value=customer.website type="text" class="form-control" placeholder="Website"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputTags" class="col-sm-2 control-label">Tags</label>
+          <div class="col-sm-10">
+            {{input id="customer_tags" value=customer.tags type="text" class="form-control selectize" placeholder="Tags"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputReference" class="col-sm-2 control-label">Reference</label>
+          <div class="col-sm-10">
+            {{input value=customer.reference type="text" class="form-control" placeholder="Reference"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputMemo" class="col-sm-2 control-label">Memo</label>
+          <div class="col-sm-10">
+            {{textarea value=customer.note rows="4" class="form-control"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button id="saveCustomer" class="btn btn-default" {{action "saveCustomer" customer}} {{bind-attr disabled=customer.isUnchanged}}><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+          </div>
+        </div>
+      </form>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="customer-addresses">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Address</th>
+              <th width="70px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each address in addresses}}
+            <tr>
+              <td>{{address.label}}</td>
+              <td>
+                {{address.street}}<br>
+                {{address.zip}} {{address.city}}<br>
+                {{address.state}} {{address.country}}<br>
+              </td>
+              <td class="text-right">
+                <div class="btn-group">
+                  <button class="btn btn-default btn-xs" {{action 'editAddress' address}}><span class="glyphicon glyphicon-pencil"></span></button>
+                  <button class="btn btn-danger btn-xs" {{action 'deleteAddress' address}}><span class="glyphicon glyphicon-trash"></span></button>
+                </div>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+
+      <button class="btn btn-success btn-sm" {{action 'addAddress' customer}}><span class="glyphicon glyphicon-plus"></span> Add address</button>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="customer-contacts">
+    {{#each contact in contacts}}
+      <div class="pull-right btn-group actions">
+        <button class="btn btn-default btn-xs" {{action 'editContact' contact}}><span class="glyphicon glyphicon-pencil"></span></button>
+        <button class="btn btn-danger btn-xs" {{action 'deleteContact' contact}}><span class="glyphicon glyphicon-trash"></span></button>
+      </div>
+
+      <h4>{{contact.firstName}} {{contact.lastName}} <small>{{contact.position}}</small></h4>
+      <p>
+        {{#if contact.phone}}
+          <span class="glyphicon glyphicon-phone"></span> {{contact.phone}}<br>
+        {{/if}}
+        {{#if contact.mobile}}
+          <span class="glyphicon glyphicon-earphone"></span> {{contact.mobile}}<br>
+        {{/if}}
+        {{#if contact.email}}
+          <span class="glyphicon glyphicon-envelope"></span> <a href="mailto: {{contact.mailtoContactEmail}}">{{contact.email}}</a><br>
+        {{/if}}
+      </p>
+      <hr>
+      {{/each}}
+    <button class="btn btn-success btn-sm" {{action 'addContact' customer}}><span class="glyphicon glyphicon-plus"></span> Add contact</button>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="customer-notes">
+      {{#each note in notes}}
+      <div class="clearfix"></div>
+      <div class="pull-right btn-group actions">
+        <button class="btn btn-default btn-xs" {{action 'editNote' note}}><span class="glyphicon glyphicon-pencil"></span></button>
+        <button class="btn btn-danger btn-xs" {{action 'deleteNote' note}}><span class="glyphicon glyphicon-trash"></span></button>
+      </div>
+
+      <h4>{{note.title}} <small>{{note.created}}</small></h4>
+      <p>{{note.note}}</p>   
+      <hr>
+
+      {{/each}}
+
+      <button class="btn btn-success btn-sm" {{action 'addNote' customer}}><span class="glyphicon glyphicon-plus"></span> Add note</button>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="address-modal">          
+      <form name="form" class="form-horizontal" role="form" novalidate>
+        <div class="form-group">
+          <label for="inputLabel" class="col-sm-2 control-label">Label</label>
+          <div class="col-sm-10">
+            {{input value=currentAddress.label type="text" class="form-control" placeholder="Name"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputStreet" class="col-sm-2 control-label">Street</label>
+          <div class="col-sm-10">
+            {{input value=currentAddress.street type="text" class="form-control" placeholder="Street"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputZip" class="col-sm-2 control-label">Zip Code</label>
+          <div class="col-sm-10">
+            {{input value=currentAddress.zip type="text" class="form-control" placeholder="Zip"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputCity" class="col-sm-2 control-label">City</label>
+          <div class="col-sm-10">
+            {{input value=currentAddress.city type="text" class="form-control" placeholder="City"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputState" class="col-sm-2 control-label">State</label>
+          <div class="col-sm-10">
+            {{input value=currentAddress.state type="text" class="form-control" placeholder="State"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputCountry" class="col-sm-2 control-label">Country</label>
+          <div class="col-sm-10">
+            {{input value=currentAddress.country type="text" class="form-control" placeholder="Country"}}
+          </div>
+        </div>
+      </form>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="contact-modal">          
+      <form name="form" class="form-horizontal" role="form" novalidate>
+        <div class="form-group">
+          <label for="inputLabel" class="col-sm-2 control-label">First Name</label>
+          <div class="col-sm-10">
+            {{input value=currentContact.firstName type="text" class="form-control" placeholder="First Name"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputStreet" class="col-sm-2 control-label">Last Name</label>
+          <div class="col-sm-10">
+            {{input value=currentContact.lastName type="text" class="form-control" placeholder="LastName"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputZip" class="col-sm-2 control-label">Position</label>
+          <div class="col-sm-10">
+            {{input value=currentContact.position type="text" class="form-control" placeholder="Position"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputCity" class="col-sm-2 control-label">Phone</label>
+          <div class="col-sm-10">
+            {{input value=currentContact.phone type="text" class="form-control" placeholder="Phone"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputState" class="col-sm-2 control-label">Mobile</label>
+          <div class="col-sm-10">
+            {{input value=currentContact.mobile type="text" class="form-control" placeholder="Mobile"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputCountry" class="col-sm-2 control-label">Email</label>
+          <div class="col-sm-10">
+            {{input value=currentContact.email type="text" class="form-control" placeholder="Email"}}
+          </div>
+        </div>
+      </form>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="note-modal">          
+      <form name="form" class="form-horizontal" role="form" novalidate>
+        <div class="form-group">
+          <label for="inputLabel" class="col-sm-2 control-label">First Name</label>
+          <div class="col-sm-10">
+            {{input value=currentNote.title type="text" class="form-control" placeholder="Title"}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputStreet" class="col-sm-2 control-label">Note</label>
+          <div class="col-sm-10">
+            {{textarea value=currentNote.note rows="16" class="form-control"}}
+          </div>
+        </div>      
+      </form>
+    </script>
+
+    <!-- Components -->
+    <script type="text/javascript" src="/components/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/components/underscore/underscore.js"></script>
+    <script type="text/javascript" src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/components/selectize/dist/js/standalone/selectize.min.js"></script>
+    <script type="text/javascript" src="/components/handlebars/handlebars.min.js"></script>
+    <script type="text/javascript" src="/components/ember/ember.js"></script>
+    <script type="text/javascript" src="/components/ember-model/ember-model.js"></script>
+    <script type="text/javascript" src="/components/ember-addons.bs_for_ember/dist/js/bs-core.min.js"></script>
+    <script type="text/javascript" src="/components/ember-addons.bs_for_ember/dist/js/bs-button.min.js"></script>
+    <script type="text/javascript" src="/components/ember-addons.bs_for_ember/dist/js/bs-modal.min.js"></script>
+
+    <script type="text/javascript" src="/js/app.js"></script>
+
+    <script type="text/javascript" src="/js/models/customer.js"></script>
+    <script type="text/javascript" src="/js/models/new_customer.js"></script>
+    <script type="text/javascript" src="/js/models/customer_count.js"></script>
+    <script type="text/javascript" src="/js/models/tag.js"></script>
+    <script type="text/javascript" src="/js/models/address.js"></script>
+    <script type="text/javascript" src="/js/models/contact.js"></script>
+    <script type="text/javascript" src="/js/models/note.js"></script>
+
+    <script type="text/javascript" src="/js/views.js"></script>
+    <script type="text/javascript" src="/js/dashboard.js"></script>
+    <script type="text/javascript" src="/js/customers.js"></script>
+    <script type="text/javascript" src="/js/customers_new.js"></script>
+    <script type="text/javascript" src="/js/customer.js"></script>
+
+    <!-- to activate the test runner, add the "?test" query string parameter -->
+    <script src="tests/runner.js"></script>
+  </body>
+</html>

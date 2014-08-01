@@ -1,0 +1,33 @@
+<h1 class="page-header">Dashboard</h1>
+<strong>{{ totalCustomers }}</strong> customers in the database.<br>
+<strong>{{ newCustomers.length }}</strong> new customers added this week.<br>
+
+<h2 class="sub-header">New customers</h2>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Branch</th>
+        <th>Tags</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="customer in newCustomers | orderBy: '-created'">
+        <td><a href="/#/customer/{{customer.customerId}}" ng-bind="customer.customerId"></a></td>
+        <td ng-bind="customer.name"></td>
+        <td ng-bind="customer.branch"></td>
+        <td ng-bind="customer.tags.join(', ')"></td>
+        <td ng-bind="customer.created  | date : 'yyyy-MM-dd H:mm'"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 class="sub-header">Tags</h2>
+<p class="text-muted">{{ tags.length }} tags:</p>
+<span ng-repeat="tag in tags">
+  <a href="/#/customers/search/{{ tag }}" class="btn btn-default" ng-bind="tag"></a>
+</span>

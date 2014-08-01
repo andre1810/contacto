@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="contactoApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>contacto Customer Relationship Management</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- selectize.js -->
+    <link href="/components/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/dashboard.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">contacto CRM <small>@ AngularJS</small></a>
+        </div>
+        <div class="navbar-collapse collapse" ng-controller="SearchbarCtrl">
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search..." ng-model="keyword" ng-keypress="search($event)">
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li ui-route="/" ng-class="{active: $uiRoute}"><a href="/#">Overview</a></li>
+            <li ui-route="/#/customers" ng-class="{active: $uiRoute}"><a href="/#/customers">Customers</a></li>
+            <li ui-route="/#/customer/new" ng-class="{active: $uiRoute}"><a href="/#/customer/new">New Customer</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <div ng-view></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Components -->
+    <script type="text/javascript" src="/components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/components/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="/components/angular-resource/angular-resource.min.js"></script>
+    <script type="text/javascript" src="/components/angular-ui-utils/ui-utils.js"></script>
+    <script type="text/javascript" src="/components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="/components/underscore/underscore.js"></script>
+    <script type="text/javascript" src="/components/angular-underscore-module/angular-underscore-module.js"></script>
+    <script type="text/javascript" src="/components/selectize/dist/js/standalone/selectize.js"></script>
+    
+    <!-- Angular App -->
+    <script type="text/javascript" src="/js/contacto.js"></script>
+
+    <!-- Directives -->
+    <script type="text/javascript" src="/js/directives/selectize-tags.js"></script>
+
+    <!-- Services -->
+    <script type="text/javascript" src="/js/services/customer.js"></script>
+    <script type="text/javascript" src="/js/services/customer_service.js"></script>
+
+    <script type="text/javascript" src="/js/services/address.js"></script>
+    <script type="text/javascript" src="/js/services/contact.js"></script>
+    <script type="text/javascript" src="/js/services/note.js"></script>
+
+    <!-- Controllers -->
+    <script type="text/javascript" src="/js/controllers/searchbar.js"></script>
+    <script type="text/javascript" src="/js/controllers/search.js"></script>
+    <script type="text/javascript" src="/js/controllers/overview.js"></script>
+    <script type="text/javascript" src="/js/controllers/modals/address_modal.js"></script>
+    <script type="text/javascript" src="/js/controllers/modals/contact_modal.js"></script>
+    <script type="text/javascript" src="/js/controllers/modals/note_modal.js"></script>
+    <script type="text/javascript" src="/js/controllers/customer.js"></script>
+    <script type="text/javascript" src="/js/controllers/customers.js"></script>
+    <script type="text/javascript" src="/js/controllers/customer_details.js"></script>
+    <script type="text/javascript" src="/js/controllers/new_customer.js"></script>
+  </body>
+</html>
