@@ -1,0 +1,7 @@
+Use mongoimport to import the test data into the mondodb collection.
+
+http://docs.mongodb.org/manual/reference/program/mongoimport/
+
+mongoimport --db contacto_development --collection customers --type json --headerline --file test-data.json
+
+Just run the app one time before import.
