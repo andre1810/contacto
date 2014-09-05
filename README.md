@@ -7,6 +7,21 @@ __contacto__ is a Customer Relationship Management Application. It´s implemente
 
 ####Instructions:####
 
+Meteor 0.9.1:
+
+According to Meteor, Meteorid(mrt) is on the way to get deprecated. As I couldn't run the demo with the newest Meteor version, I have ported it and removed the Meteorid (mrt) dependency.
+
+Meteor also uses a different way to set the ID of a document. It does not use the normal Mongo ObjectId, instead it uses its own datatype. 
+While it may appear to be a string, Meteor will handle it differently. If you import the test-data according to the instructions in the root folder, you will get mixed id data types and corrupt the collection. To fill test-data into your mongodb, run the script and call [http://localhost:3000/dump]
+
+In case the ./meteor_upgrade_091/private/test-data.json file does not exists, make a link to ./test-data.json
+
+>> ln -s ./test-data.json ./meteor_upgrade_091/private/test-data.json  
+
+use 'MONGO_URL="mongodb://127.0.0.1:27017/contacto_development" meteor run' in the ./meteor_upgrade_091 folder to start it.
+
+
+
 AngularJS, Backbone.js, Ember.js:
 Start MongoDB and run `npm start` in the dir of the selected project.
 

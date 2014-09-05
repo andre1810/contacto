@@ -1,0 +1,40 @@
+<template name="customersSearch">
+  <h1 class="page-header">Search: {{keyword}}</h1>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Branch</th>
+          <th width="25%">Tags</th>
+          <th>Created</th>
+          <th width="50px"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each customers}}
+        <tr>
+          <td><a href="/customer/{{_id}}">{{customerId}}</a></td>
+          <td>{{name}}</td>
+          <td>{{branch}}</td>
+          <td>{{tagList tags}}</td>
+          <td>{{created}}</td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button class="btn btn-danger btn-xs deleteCustomer" data-id="{{_id}}"><span class="glyphicon glyphicon-trash"></span></button>
+            </div>
+          </td>
+        </tr>
+        {{else}}
+        <tr>
+          <td colspan="6">
+            No customers found.
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>

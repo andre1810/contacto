@@ -1,0 +1,37 @@
+<template name="dashboard">
+  <h1 class="page-header">Dashboard</h1>
+  <strong>{{totalCustomers}}</strong> customers in the database.<br>
+  <strong>{{totalNewCustomers}}</strong> new customers added this week.<br>
+
+  <h2 class="sub-header">New customers</h2>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Branch</th>
+          <th>Tags</th>
+          <th>Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each newCustomers}}
+        <tr>
+          <td><a href="/customer/{{_id}}">{{customerId}}</a></td>
+          <td>{{name}}</td>
+          <td>{{branch}}</td>
+          <td>{{tagList tags}}</td>
+          <td>{{created}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="sub-header">Tags</h2>
+  <p class="text-muted">{{ allTags.length }} tags:</p>
+  {{#each allTags}}
+    <a href="/customers/search/{{tag}}" class="btn btn-default">{{tag}}</a>
+  {{/each}}
+</template>
